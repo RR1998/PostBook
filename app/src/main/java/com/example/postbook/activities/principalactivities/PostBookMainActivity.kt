@@ -1,7 +1,9 @@
-package com.example.postbook
+package com.example.postbook.activities.principalactivities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.postbook.activities.backgroundactivities.DownloadFilesTask
+import com.example.postbook.R
 import java.net.URL
 
 class PostBookMainActivity : AppCompatActivity() {
