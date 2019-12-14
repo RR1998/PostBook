@@ -1,6 +1,10 @@
-package com.example.postbook
+package com.example.postbook.activities.backgroundactivities
 
 import android.os.AsyncTask
+import com.example.postbook.activities.principalactivities.PostDatabaseAccessClass
+import com.example.postbook.postclassmodels.PostClass
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
@@ -8,6 +12,8 @@ import javax.net.ssl.HttpsURLConnection
 
 
 object DownloadFilesTask : AsyncTask<URL?, Int?, Long>() {
+
+    lateinit var postArray: ArrayList<PostClass>
 
     override fun doInBackground(vararg params: URL?): Long {
 
@@ -20,25 +26,30 @@ object DownloadFilesTask : AsyncTask<URL?, Int?, Long>() {
 
         val inputStream = urlConnection.inputStream
 
-        val stringBuilder = StringBuilder()
-
-        val stringJsonPackage: MutableList<String> = mutableListOf()
-
         var line: String?
 
         val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+
+        var stringAux = ""
+
+        val postListType = object : TypeToken<ArrayList<PostClass?>?>() {}.type
+
+        val jsonConverter = Gson()
+
         line = bufferedReader.readLine()
-        stringJsonPackage.add(line)
+
         while (line != null) {
-            stringBuilder.append(line)
+            stringAux = "$stringAux$line"
             line = bufferedReader.readLine()
-            if(line == null){
+            if (line == null) {
                 break
             }
-            stringJsonPackage.add(line)
         }
-        
+
         bufferedReader.close()
+        postArray = jsonConverter.fromJson(stringAux, postListType)
+        PostDatabaseAccessClass().addName(postArray[0])
         return 0
     }
+
 }
