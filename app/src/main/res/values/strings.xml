@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PostBook</string>
+    <string name="open_commentary_icon">Open commentary icon</string>
 </resources>
