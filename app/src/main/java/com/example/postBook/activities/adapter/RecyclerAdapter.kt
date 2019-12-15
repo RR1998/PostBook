@@ -12,11 +12,11 @@ import com.example.postBook.postClassModels.PostClass
 
 class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
-    var posts: MutableList<PostClass> = ArrayList()
+    private var posts: MutableList<PostClass> = ArrayList()
 
-    lateinit var context: Context
+    private lateinit var context: Context
 
-    fun RecyclerAdapter(posts: MutableList<PostClass>, context: Context) {
+    fun recyclerAdapter(posts: MutableList<PostClass>, context: Context) {
         this.posts = posts
         this.context = context
     }
