@@ -27,12 +27,12 @@ class PostBookMainActivity : AppCompatActivity() {
         private lateinit var postArray: ArrayList<PostClass>
 
         override fun doInBackground(vararg params: URL?): Long {
-            val url = URL("https", "jsonplaceholder.typicode.com", "posts")
+            val url = URL(PROTOCOL, POST_URL_HOST, POST_URL_FILE)
             val urlConnection: HttpsURLConnection = url.openConnection() as HttpsURLConnection
 
-            urlConnection.requestMethod = "GET"
-            urlConnection.readTimeout = 10000
-            urlConnection.connectTimeout = 10000
+            urlConnection.requestMethod = REQUEST_METHOD_GET
+            urlConnection.readTimeout = READ_TIME_OUT
+            urlConnection.connectTimeout = CONNECT_TIME_OUT
             urlConnection.connect()
 
             val inputStream = urlConnection.inputStream
@@ -59,7 +59,16 @@ class PostBookMainActivity : AppCompatActivity() {
 
             bufferedReader.close()
             postArray = jsonConverter.fromJson(stringAux, postListType)
+            //PostDatabaseAccessClass(this@PostBookMainActivity, null).addName(postArray[0])
             return 0
         }
+    }
+    companion object{
+        const val READ_TIME_OUT = 10000
+        const val CONNECT_TIME_OUT = 10000
+        const val REQUEST_METHOD_GET = "GET"
+        const val PROTOCOL = "https"
+        const val POST_URL_HOST = "jsonplaceholder.typicode.com"
+        const val POST_URL_FILE = "posts"
     }
 }
