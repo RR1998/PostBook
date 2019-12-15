@@ -7,4 +7,5 @@
     <color name="commentsButtonColor">#192033</color>
     <color name="detailsCommentsColor">#6047FF</color>
     <color name="commentsSpaceColor">#171D2F</color>
+    <color name="white">#FFFFFF</color>
 </resources>
