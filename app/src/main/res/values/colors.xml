@@ -3,4 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="commentsColor">#1F273E</color>
+    <color name="commentsButtonColor">#192033</color>
+    <color name="detailsCommentsColor">#6047FF</color>
+    <color name="commentsSpaceColor">#171D2F</color>
 </resources>
