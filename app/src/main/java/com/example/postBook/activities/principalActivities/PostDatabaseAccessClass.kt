@@ -4,7 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.example.postbook.postclassmodels.PostClass
+import com.example.postBook.postClassModels.PostClass
 
 class PostDatabaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFactory?) :
                               SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION) {

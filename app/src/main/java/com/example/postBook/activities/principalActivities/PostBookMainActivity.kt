@@ -4,8 +4,11 @@ import android.annotation.SuppressLint
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.postbook.R
-import com.example.postbook.postclassmodels.PostClass
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.postBook.R
+import com.example.postBook.activities.adapter.RecyclerAdapter
+import com.example.postBook.postClassModels.PostClass
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.BufferedReader
@@ -15,18 +18,26 @@ import javax.net.ssl.HttpsURLConnection
 
 class PostBookMainActivity : AppCompatActivity() {
 
+    lateinit var recyclerView : RecyclerView
+
+    private val adapter : RecyclerAdapter = RecyclerAdapter()
+
+    var postArray = ArrayList<PostClass>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.post_book_activity_main)
-        DownloadFilesTask().execute()
+        postArray = DownloadFilesTask().execute().get()
+        setUpRecyclerView()
     }
 
     @SuppressLint("StaticFieldLeak")
-    inner class DownloadFilesTask : AsyncTask<URL?, Int?, Long>() {
+    inner class DownloadFilesTask : AsyncTask<URL?, Int?, ArrayList<PostClass>>() {
 
         private lateinit var postArray: ArrayList<PostClass>
 
-        override fun doInBackground(vararg params: URL?): Long {
+        override fun doInBackground(vararg params: URL?): ArrayList<PostClass> {
+
             val url = URL(PROTOCOL, POST_URL_HOST, POST_URL_FILE)
             val urlConnection: HttpsURLConnection = url.openConnection() as HttpsURLConnection
 
@@ -60,10 +71,19 @@ class PostBookMainActivity : AppCompatActivity() {
             bufferedReader.close()
             postArray = jsonConverter.fromJson(stringAux, postListType)
             //PostDatabaseAccessClass(this@PostBookMainActivity, null).addName(postArray[0])
-            return 0
+            return postArray
         }
     }
-    companion object{
+
+    private fun setUpRecyclerView(){
+        recyclerView = findViewById(R.id.posts_views)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        adapter.RecyclerAdapter(postArray, this)
+        recyclerView.adapter = adapter
+    }
+
+    companion object {
         const val READ_TIME_OUT = 10000
         const val CONNECT_TIME_OUT = 10000
         const val REQUEST_METHOD_GET = "GET"
