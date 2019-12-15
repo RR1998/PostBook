@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/post_book_background"
-    tools:context=".activities.principalactivities.PostBookMainActivity">
+    android:background="@color/commentsButtonColor"
+    tools:context=".activities.principalActivities.PostBookMainActivity">
 
-<!--    <android.support.v7.widget.RecyclerView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/posts_views"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />-->
-
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
