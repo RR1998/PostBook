@@ -39,17 +39,14 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
         private val userId = view.findViewById(R.id.user_id) as TextView
         private val commentTittle = view.findViewById(R.id.comment_title) as TextView
         private val commentContent = view.findViewById(R.id.comment_content) as TextView
-
+        private val commentImage = view.findViewById(R.id.image_comment) as ImageView
         fun bind(post: PostClass, context: Context) {
             userId.text = post.userId.toString()
             commentTittle.text = post.title
             commentContent.text = post.body
-            itemView.setOnClickListener {
-                Toast.makeText(
-                    context,
-                    post.userId.toString(),
-                    Toast.LENGTH_SHORT
-                ).show()
+            commentImage.setImageResource(R.drawable.post_book_comment_icon)
+            commentImage.setOnClickListener{
+
             }
         }
     }
