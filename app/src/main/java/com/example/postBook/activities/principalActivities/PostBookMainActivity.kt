@@ -22,7 +22,7 @@ class PostBookMainActivity : AppCompatActivity() {
 
     private val adapter : RecyclerAdapter = RecyclerAdapter()
 
-    var postArray = ArrayList<PostClass>()
+    var postArray: MutableList<PostClass> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,11 +32,11 @@ class PostBookMainActivity : AppCompatActivity() {
     }
 
     @SuppressLint("StaticFieldLeak")
-    inner class DownloadFilesTask : AsyncTask<URL?, Int?, ArrayList<PostClass>>() {
+    inner class DownloadFilesTask : AsyncTask<URL?, Int?, MutableList<PostClass>>() {
 
-        private lateinit var postArray: ArrayList<PostClass>
+        private lateinit var postArray: MutableList<PostClass>
 
-        override fun doInBackground(vararg params: URL?): ArrayList<PostClass> {
+        override fun doInBackground(vararg params: URL?): MutableList<PostClass> {
 
             val url = URL(PROTOCOL, POST_URL_HOST, POST_URL_FILE)
             val urlConnection: HttpsURLConnection = url.openConnection() as HttpsURLConnection
@@ -54,7 +54,7 @@ class PostBookMainActivity : AppCompatActivity() {
 
             var stringAux = ""
 
-            val postListType = object : TypeToken<ArrayList<PostClass?>?>() {}.type
+            val postListType = object : TypeToken<MutableList<PostClass?>?>() {}.type
 
             val jsonConverter = Gson()
 
