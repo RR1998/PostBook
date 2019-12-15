@@ -1,4 +1,4 @@
-package com.example.postbook.postclassmodels
+package com.example.postBook.postClassModels
 
 class PostClass {
     var userId: Long = 0

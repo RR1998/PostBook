@@ -1,4 +1,4 @@
-package com.example.postbook.postclassmodels
+package com.example.postBook.postClassModels
 
 class PostComentClass {
     var postId: Long = 0 //this will be use as foreign key
