@@ -79,7 +79,7 @@ class PostBookMainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.posts_views)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter.RecyclerAdapter(postArray, this)
+        adapter.recyclerAdapter(postArray, this)
         recyclerView.adapter = adapter
     }
 
