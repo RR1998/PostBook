@@ -3,26 +3,27 @@ package com.example.postBook.activities.principalActivities
 import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.postBook.R
+import com.example.postBook.activities.adapter.CommentBundleObject
 import com.example.postBook.activities.adapter.RecyclerCommentsAdapter
 import com.example.postBook.postClassModels.PostCommentClass
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import java.lang.reflect.Type
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
 class PostBookCommentaryActivity : AppCompatActivity() {
 
-    private lateinit var recyclerView : RecyclerView
+    private lateinit var recyclerView: RecyclerView
 
-    private val postAdapter : RecyclerCommentsAdapter = RecyclerCommentsAdapter()
+    private val postAdapter: RecyclerCommentsAdapter = RecyclerCommentsAdapter()
 
     var id: Long? = 0
 
@@ -36,9 +37,9 @@ class PostBookCommentaryActivity : AppCompatActivity() {
         val userId = findViewById<TextView>(R.id.user_id)
         val commentTittle = findViewById<TextView>(R.id.comment_title)
         val commentContent = findViewById<TextView>(R.id.comment_content)
-        userId.text = bundleReceived?.getLong("userIdSelected").toString()
-        commentTittle.text = bundleReceived?.getString("tittleSelected")
-        commentContent.text = bundleReceived?.getString("bodySelected")
+        userId.text = bundleReceived?.getLong(CommentBundleObject.userId).toString()
+        commentTittle.text = bundleReceived?.getString(CommentBundleObject.commentTittle)
+        commentContent.text = bundleReceived?.getString(CommentBundleObject.commentBody)
         commentsArray = DownloadFilesTask().execute().get()
         setUpRecyclerView()
     }
@@ -52,19 +53,19 @@ class PostBookCommentaryActivity : AppCompatActivity() {
 
             val bundleReceived = intent.extras
 
-            id = bundleReceived?.getLong("commentSelected")
+            id = bundleReceived?.getLong(CommentBundleObject.tittleId)
 
             val url = URL(
-                PROTOCOL,
-                POST_URL_HOST,
-                POST_URL_FILE+(id.toString())
+                PostBookConstantsObject.protocol,
+                PostBookConstantsObject.UrlHost,
+                PostBookConstantsObject.commentUrlFile + (id.toString())
             )
 
             val urlConnection: HttpsURLConnection = url.openConnection() as HttpsURLConnection
 
-            urlConnection.requestMethod = REQUEST_METHOD_GET
-            urlConnection.readTimeout = READ_TIME_OUT
-            urlConnection.connectTimeout = CONNECT_TIME_OUT
+            urlConnection.requestMethod = PostBookConstantsObject.methodGet
+            urlConnection.readTimeout = PostBookConstantsObject.readTimeOut
+            urlConnection.connectTimeout = PostBookConstantsObject.connectTimeOut
             urlConnection.connect()
 
             val inputStream = urlConnection.inputStream
@@ -75,13 +76,12 @@ class PostBookCommentaryActivity : AppCompatActivity() {
 
             var stringAux = ""
 
-            val postListType = object : TypeToken<MutableList<PostCommentClass?>?>() {}.type
+            val postListType: Type = object : TypeToken<MutableList<PostCommentClass?>?>() {}.type
 
             val jsonConverter = Gson()
 
             line = bufferedReader.readLine()
 
-            Log.v("aaaa", id.toString())
             while (line != null) {
                 stringAux = "$stringAux$line"
                 line = bufferedReader.readLine()
@@ -97,27 +97,16 @@ class PostBookCommentaryActivity : AppCompatActivity() {
                     commentsArray.add(it)
                 }
             }
-            commentsArray.forEach {
-                Log.v("aaaa", it.id.toString())
-            }
+
             return commentsArray
         }
     }
 
-    private fun setUpRecyclerView(){
+    private fun setUpRecyclerView() {
         recyclerView = findViewById(R.id.posts_views)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
         postAdapter.recyclerAdapter(commentsArray, this)
         recyclerView.adapter = postAdapter
-    }
-
-    companion object {
-        const val READ_TIME_OUT = 10000
-        const val CONNECT_TIME_OUT = 10000
-        const val REQUEST_METHOD_GET = "GET"
-        const val PROTOCOL = "https"
-        const val POST_URL_HOST = "jsonplaceholder.typicode.com"
-        const val POST_URL_FILE = "comments?postId="
     }
 }

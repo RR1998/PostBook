@@ -1,4 +1,4 @@
-package com.example.postBook.activities.principalActivities
+package com.example.postBook.activities.database.databaseClasses
 
 import android.content.ContentValues
 import android.content.Context

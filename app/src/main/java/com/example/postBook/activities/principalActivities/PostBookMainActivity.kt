@@ -12,15 +12,16 @@ import com.example.postBook.postClassModels.PostClass
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.BufferedReader
+import java.io.InputStream
 import java.io.InputStreamReader
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
 class PostBookMainActivity : AppCompatActivity() {
 
-    lateinit var recyclerView : RecyclerView
+    lateinit var recyclerView: RecyclerView
 
-    private val postAdapter : RecyclerPostAdapter = RecyclerPostAdapter()
+    private val postAdapter: RecyclerPostAdapter = RecyclerPostAdapter()
 
     var postArray: MutableList<PostClass> = ArrayList()
 
@@ -37,15 +38,18 @@ class PostBookMainActivity : AppCompatActivity() {
 
         override fun doInBackground(vararg params: URL?): MutableList<PostClass> {
 
-            val url = URL(PROTOCOL, POST_URL_HOST, POST_URL_FILE)
+            val url = URL(
+                PostBookConstantsObject.protocol,
+                PostBookConstantsObject.UrlHost, PostBookConstantsObject.postUrlFile
+            )
             val urlConnection: HttpsURLConnection = url.openConnection() as HttpsURLConnection
 
-            urlConnection.requestMethod = REQUEST_METHOD_GET
-            urlConnection.readTimeout = READ_TIME_OUT
-            urlConnection.connectTimeout = CONNECT_TIME_OUT
+            urlConnection.requestMethod = PostBookConstantsObject.methodGet
+            urlConnection.readTimeout = PostBookConstantsObject.readTimeOut
+            urlConnection.connectTimeout = PostBookConstantsObject.connectTimeOut
             urlConnection.connect()
 
-            val inputStream = urlConnection.inputStream
+            val inputStream:InputStream = urlConnection.inputStream
 
             var line: String?
 
@@ -73,20 +77,13 @@ class PostBookMainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setUpRecyclerView(){
+    private fun setUpRecyclerView() {
+
         recyclerView = findViewById(R.id.posts_views)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
         postAdapter.recyclerAdapter(postArray, this)
         recyclerView.adapter = postAdapter
-    }
 
-    companion object {
-        const val READ_TIME_OUT = 10000
-        const val CONNECT_TIME_OUT = 10000
-        const val REQUEST_METHOD_GET = "GET"
-        const val PROTOCOL = "https"
-        const val POST_URL_HOST = "jsonplaceholder.typicode.com"
-        const val POST_URL_FILE = "posts"
     }
 }
