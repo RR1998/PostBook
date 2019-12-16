@@ -44,7 +44,9 @@ class PostDatabaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFa
         val db: SQLiteDatabase? = this.writableDatabase
 
         comments.forEach {
+
             val values = ContentValues()
+
             values.put(DatabaseAccessConstantsObjects.tableId, it.id)
             values.put(DatabaseAccessConstantsObjects.postId, it.postId)
             values.put(DatabaseAccessConstantsObjects.name, it.name)
