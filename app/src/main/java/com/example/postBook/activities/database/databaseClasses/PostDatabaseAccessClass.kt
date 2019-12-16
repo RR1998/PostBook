@@ -7,7 +7,11 @@ import android.database.sqlite.SQLiteOpenHelper
 import com.example.postBook.postClassModels.PostClass
 
 class PostDatabaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFactory?) :
-                              SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION) {
+    SQLiteOpenHelper(
+        context,
+        DATABASE_NAME, factory,
+        DATABASE_VERSION
+    ) {
 
     override fun onCreate(db: SQLiteDatabase?) {
 
