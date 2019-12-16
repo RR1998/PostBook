@@ -8,5 +8,5 @@
     <dimen name="upper_sides_margin">10dp</dimen>
     <dimen name="user_id_height">30dp</dimen>
     <dimen name="comment_content_height">150dp</dimen>
-    <dimen name="recycler_height">300dp</dimen>
+    <dimen name="recycler_height">400dp</dimen>
 </resources>
