@@ -36,9 +36,11 @@ class RecyclerCommentsAdapter : RecyclerView.Adapter<RecyclerCommentsAdapter.Vie
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
         private val name = view.findViewById(R.id.user_id) as TextView
         private val email = view.findViewById(R.id.comment_email) as TextView
         private val commentContent = view.findViewById(R.id.comment_content_body) as TextView
+
         fun bind(post: PostCommentClass) {
             name.text = post.name
             email.text = post.email

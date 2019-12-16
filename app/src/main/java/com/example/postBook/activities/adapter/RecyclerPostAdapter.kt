@@ -49,16 +49,16 @@ class RecyclerPostAdapter : RecyclerView.Adapter<RecyclerPostAdapter.ViewHolder>
             commentTittle.text = post.title
             commentContent.text = post.body
             commentImage.setImageResource(R.drawable.post_book_comment_icon)
-            commentImage.setOnClickListener{
+            commentImage.setOnClickListener {
                 val detailClassIntent = Intent(
                     context,
                     PostBookCommentaryActivity::class.java
                 )
                 val bundle = Bundle()
-                bundle.putLong("userIdSelected", post.userId)
-                bundle.putLong("commentSelected", post.id)
-                bundle.putString("tittleSelected", post.title)
-                bundle.putString("bodySelected", post.body)
+                bundle.putLong(CommentBundleObject.userId, post.userId)
+                bundle.putLong(CommentBundleObject.tittleId, post.id)
+                bundle.putString(CommentBundleObject.commentTittle, post.title)
+                bundle.putString(CommentBundleObject.commentBody, post.body)
                 detailClassIntent.putExtras(bundle)
                 startActivity(context, detailClassIntent, null)
             }
