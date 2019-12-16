@@ -15,9 +15,9 @@ class PostDatabaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFa
     ) {
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val postsTable = ("CREATE TABLE posts(_id INTEGER PRIMARY KEY, userId INTEGER, title TEXT, body TEXT)")
+        val postsTable = CREATE_POSTS_TABLE_QUERY
         db?.execSQL(postsTable)
-        val commentsTable = ("CREATE TABLE comments(_id INTEGER PRIMARY KEY, postId INTEGER, name TEXT,email TEXT, body TEXT, FOREIGN KEY(postId) REFERENCES posts(_id))")
+        val commentsTable = CREATE_COMMENT_TABLE_QUERY
         db?.execSQL(commentsTable)
     }
 
@@ -60,6 +60,8 @@ class PostDatabaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFa
     }
 
     companion object {
+        private const val CREATE_POSTS_TABLE_QUERY = "CREATE TABLE posts(_id INTEGER PRIMARY KEY, userId INTEGER, title TEXT, body TEXT)"
+        private const val CREATE_COMMENT_TABLE_QUERY = "CREATE TABLE comments(_id INTEGER PRIMARY KEY, postId INTEGER, name TEXT,email TEXT, body TEXT, FOREIGN KEY(postId) REFERENCES posts(_id))"
         private const val DATABASE_VERSION = 1
         private const val DATABASE_NAME = "post.db"
     }
