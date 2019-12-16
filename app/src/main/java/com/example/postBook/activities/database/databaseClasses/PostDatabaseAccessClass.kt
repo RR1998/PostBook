@@ -27,12 +27,10 @@ class PostDatabaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFa
 
     fun addPosts(posts: MutableList<PostClass>) {
 
-        val db:SQLiteDatabase? = this.writableDatabase
+        val db: SQLiteDatabase? = this.writableDatabase
 
         posts.forEach {
-
             val values = ContentValues()
-
             values.put("_id", it.id)
             values.put("userId", it.userId)
             values.put("title", it.title)
@@ -42,13 +40,11 @@ class PostDatabaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFa
         db?.close()
     }
 
-    fun addComments(comments: MutableList<PostCommentClass>){
-        val db:SQLiteDatabase? = this.writableDatabase
+    fun addComments(comments: MutableList<PostCommentClass>) {
+        val db: SQLiteDatabase? = this.writableDatabase
 
         comments.forEach {
-
             val values = ContentValues()
-
             values.put("_id", it.id)
             values.put("postId", it.postId)
             values.put("name", it.name)
@@ -60,8 +56,10 @@ class PostDatabaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFa
     }
 
     companion object {
-        private const val CREATE_POSTS_TABLE_QUERY = "CREATE TABLE posts(_id INTEGER PRIMARY KEY, userId INTEGER, title TEXT, body TEXT)"
-        private const val CREATE_COMMENT_TABLE_QUERY = "CREATE TABLE comments(_id INTEGER PRIMARY KEY, postId INTEGER, name TEXT,email TEXT, body TEXT, FOREIGN KEY(postId) REFERENCES posts(_id))"
+        private const val CREATE_POSTS_TABLE_QUERY =
+            "CREATE TABLE posts(_id INTEGER PRIMARY KEY, userId INTEGER, title TEXT, body TEXT)"
+        private const val CREATE_COMMENT_TABLE_QUERY =
+            "CREATE TABLE comments(_id INTEGER PRIMARY KEY, postId INTEGER, name TEXT,email TEXT, body TEXT, FOREIGN KEY(postId) REFERENCES posts(_id))"
         private const val DATABASE_VERSION = 1
         private const val DATABASE_NAME = "post.db"
     }

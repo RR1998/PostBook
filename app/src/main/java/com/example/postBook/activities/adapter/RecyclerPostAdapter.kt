@@ -18,7 +18,7 @@ class RecyclerPostAdapter : RecyclerView.Adapter<RecyclerPostAdapter.ViewHolder>
 
     private var posts: MutableList<PostClass> = ArrayList()
 
-    lateinit var context: Context
+    private lateinit var context: Context
 
     fun recyclerAdapter(posts: MutableList<PostClass>, context: Context) {
         this.posts = posts
