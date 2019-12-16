@@ -21,6 +21,12 @@ import java.lang.reflect.Type
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
+/**
+ * PostBookCommentaryActivity gets the JSON objects and insert it into an array of comments
+ * it also callsPostDataBaseAccessClass to insert the array os comments to display it in a recycler
+ * view
+ */
+
 class PostBookCommentaryActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
@@ -45,6 +51,11 @@ class PostBookCommentaryActivity : AppCompatActivity() {
         commentsArray = DownloadFilesTask().execute().get()
         setUpRecyclerView()
     }
+
+    /**
+     * DownloadFilesTask executes an AsyncTask that gets the JSON from the web it also insert it into
+     * an array of comments and calls the DataBaseAccessClass
+     */
 
     @SuppressLint("StaticFieldLeak")
     inner class DownloadFilesTask : AsyncTask<URL?, Int?, MutableList<PostCommentClass>>() {
@@ -106,6 +117,11 @@ class PostBookCommentaryActivity : AppCompatActivity() {
             return commentsArray
         }
     }
+
+    /**
+     * seUpRecyclerView calls RecyclerCommentsAdapter and its creates the View to inflate
+     * the commentary section
+     */
 
     private fun setUpRecyclerView() {
         recyclerView = findViewById(R.id.posts_views)

@@ -9,6 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.postBook.R
 import com.example.postBook.postClassModels.PostCommentClass
 
+/**
+ * RecyclerCommentAdapter initialize and create the view that inflates the commentary feed
+ */
+
 class RecyclerCommentsAdapter : RecyclerView.Adapter<RecyclerCommentsAdapter.ViewHolder>() {
 
     private var posts: MutableList<PostCommentClass> = ArrayList()

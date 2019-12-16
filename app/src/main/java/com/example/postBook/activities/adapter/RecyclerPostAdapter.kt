@@ -14,6 +14,10 @@ import com.example.postBook.R
 import com.example.postBook.activities.principalActivities.PostBookCommentaryActivity
 import com.example.postBook.postClassModels.PostClass
 
+/**
+ * RecyclerPostAdapter initialize and create the view that inflates the posts feed
+ */
+
 class RecyclerPostAdapter : RecyclerView.Adapter<RecyclerPostAdapter.ViewHolder>() {
 
     private var posts: MutableList<PostClass> = ArrayList()

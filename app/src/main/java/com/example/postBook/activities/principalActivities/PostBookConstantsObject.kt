@@ -1,5 +1,9 @@
 package com.example.postBook.activities.principalActivities
 
+/**
+ * Object that contains the constant used to inBackgroundFunctions
+ */
+
 object PostBookConstantsObject {
 
     const val readTimeOut = 10000

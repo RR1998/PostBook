@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteOpenHelper
 import com.example.postBook.postClassModels.PostClass
 import com.example.postBook.postClassModels.PostCommentClass
 
+/**
+ * PostDataBaseAccessClass create the database and its tables
+ */
+
 class PostDatabaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     SQLiteOpenHelper(
         context,
@@ -24,6 +28,10 @@ class PostDatabaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFa
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
 
     }
+
+    /**
+     *add functions make an insert query to the database in its tables
+     */
 
     fun addPosts(posts: MutableList<PostClass>) {
 
