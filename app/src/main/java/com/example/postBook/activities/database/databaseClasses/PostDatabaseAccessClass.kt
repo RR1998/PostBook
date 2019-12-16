@@ -15,7 +15,10 @@ class PostDatabaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFa
     ) {
 
     override fun onCreate(db: SQLiteDatabase?) {
-
+        val postsTable = ("CREATE TABLE posts(_id INTEGER PRIMARY KEY, userId INTEGER, title TEXT, body TEXT)")
+        db?.execSQL(postsTable)
+        val commentsTable = ("CREATE TABLE comments(_id INTEGER PRIMARY KEY, postId INTEGER, name TEXT,email TEXT, body TEXT, FOREIGN KEY(postId) REFERENCES posts(_id))")
+        db?.execSQL(commentsTable)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
