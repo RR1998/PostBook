@@ -15,6 +15,7 @@ import com.example.postBook.postClassModels.PostCommentClass
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.BufferedReader
+import java.io.InputStream
 import java.io.InputStreamReader
 import java.lang.reflect.Type
 import java.net.URL
@@ -69,7 +70,7 @@ class PostBookCommentaryActivity : AppCompatActivity() {
             urlConnection.connectTimeout = PostBookConstantsObject.connectTimeOut
             urlConnection.connect()
 
-            val inputStream = urlConnection.inputStream
+            val inputStream: InputStream = urlConnection.inputStream
 
             var line: String?
 

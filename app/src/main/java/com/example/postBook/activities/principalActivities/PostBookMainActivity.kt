@@ -15,6 +15,7 @@ import com.google.gson.reflect.TypeToken
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
+import java.lang.reflect.Type
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
@@ -58,7 +59,7 @@ class PostBookMainActivity : AppCompatActivity() {
 
             var stringAux = ""
 
-            val postListType = object : TypeToken<MutableList<PostClass?>?>() {}.type
+            val postListType: Type = object : TypeToken<MutableList<PostClass?>?>() {}.type
 
             val jsonConverter = Gson()
 
