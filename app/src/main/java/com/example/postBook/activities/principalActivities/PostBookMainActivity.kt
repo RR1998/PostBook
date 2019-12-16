@@ -7,7 +7,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.postBook.R
-import com.example.postBook.activities.adapter.RecyclerAdapter
+import com.example.postBook.activities.adapter.RecyclerPostAdapter
 import com.example.postBook.postClassModels.PostClass
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -20,11 +20,12 @@ class PostBookMainActivity : AppCompatActivity() {
 
     lateinit var recyclerView : RecyclerView
 
-    private val adapter : RecyclerAdapter = RecyclerAdapter()
+    private val postAdapter : RecyclerPostAdapter = RecyclerPostAdapter()
 
     var postArray: MutableList<PostClass> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.post_book_activity_main)
         postArray = DownloadFilesTask().execute().get()
@@ -33,8 +34,6 @@ class PostBookMainActivity : AppCompatActivity() {
 
     @SuppressLint("StaticFieldLeak")
     inner class DownloadFilesTask : AsyncTask<URL?, Int?, MutableList<PostClass>>() {
-
-        private lateinit var postArray: MutableList<PostClass>
 
         override fun doInBackground(vararg params: URL?): MutableList<PostClass> {
 
@@ -70,7 +69,6 @@ class PostBookMainActivity : AppCompatActivity() {
 
             bufferedReader.close()
             postArray = jsonConverter.fromJson(stringAux, postListType)
-            //PostDatabaseAccessClass(this@PostBookMainActivity, null).addName(postArray[0])
             return postArray
         }
     }
@@ -79,8 +77,8 @@ class PostBookMainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.posts_views)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter.recyclerAdapter(postArray, this)
-        recyclerView.adapter = adapter
+        postAdapter.recyclerAdapter(postArray, this)
+        recyclerView.adapter = postAdapter
     }
 
     companion object {
