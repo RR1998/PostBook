@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.postBook.R
 import com.example.postBook.activities.adapter.RecyclerPostAdapter
+import com.example.postBook.activities.database.databaseClasses.PostDatabaseAccessClass
 import com.example.postBook.postClassModels.PostClass
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -73,6 +74,7 @@ class PostBookMainActivity : AppCompatActivity() {
 
             bufferedReader.close()
             postArray = jsonConverter.fromJson(stringAux, postListType)
+            PostDatabaseAccessClass(this@PostBookMainActivity, null).addPosts(postArray)
             return postArray
         }
     }

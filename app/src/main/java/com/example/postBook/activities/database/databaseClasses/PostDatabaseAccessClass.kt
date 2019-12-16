@@ -25,18 +25,21 @@ class PostDatabaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFa
 
     }
 
-    fun addName(post: PostClass) {
+    fun addPosts(posts: MutableList<PostClass>) {
 
-        val db = this.writableDatabase
+        val db:SQLiteDatabase? = this.writableDatabase
 
-        val values = ContentValues()
+        posts.forEach {
 
-        values.put("_id", post.id)
-        values.put("userid", post.userId)
-        values.put("title", post.title)
-        values.put("body", post.body)
-        db.insert("posts", null, values)
-        db.close()
+            val values = ContentValues()
+
+            values.put("_id", it.id)
+            values.put("userId", it.userId)
+            values.put("title", it.title)
+            values.put("body", it.body)
+            db?.insert("posts", null, values)
+        }
+        db?.close()
     }
 
     fun addComments(comments: MutableList<PostCommentClass>){
