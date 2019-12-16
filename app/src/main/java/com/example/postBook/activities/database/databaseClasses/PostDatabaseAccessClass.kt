@@ -10,14 +10,14 @@ import com.example.postBook.postClassModels.PostCommentClass
 class PostDatabaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     SQLiteOpenHelper(
         context,
-        DATABASE_NAME, factory,
-        DATABASE_VERSION
+        DatabaseAccessConstantsObjects.databaseName, factory,
+        DatabaseAccessConstantsObjects.databaseVersion
     ) {
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val postsTable = CREATE_POSTS_TABLE_QUERY
+        val postsTable = DatabaseAccessConstantsObjects.createPostTableQuery
         db?.execSQL(postsTable)
-        val commentsTable = CREATE_COMMENT_TABLE_QUERY
+        val commentsTable = DatabaseAccessConstantsObjects.createCommentTableQuery
         db?.execSQL(commentsTable)
     }
 
@@ -31,11 +31,11 @@ class PostDatabaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFa
 
         posts.forEach {
             val values = ContentValues()
-            values.put("_id", it.id)
-            values.put("userId", it.userId)
-            values.put("title", it.title)
-            values.put("body", it.body)
-            db?.insert("posts", null, values)
+            values.put(DatabaseAccessConstantsObjects.tableId, it.id)
+            values.put(DatabaseAccessConstantsObjects.userId, it.userId)
+            values.put(DatabaseAccessConstantsObjects.tableTittle, it.title)
+            values.put(DatabaseAccessConstantsObjects.tableBody, it.body)
+            db?.insert(DatabaseAccessConstantsObjects.postTableName, null, values)
         }
         db?.close()
     }
@@ -45,22 +45,13 @@ class PostDatabaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFa
 
         comments.forEach {
             val values = ContentValues()
-            values.put("_id", it.id)
-            values.put("postId", it.postId)
-            values.put("name", it.name)
-            values.put("email", it.email)
-            values.put("body", it.body)
-            db?.insert("posts", null, values)
+            values.put(DatabaseAccessConstantsObjects.tableId, it.id)
+            values.put(DatabaseAccessConstantsObjects.postId, it.postId)
+            values.put(DatabaseAccessConstantsObjects.name, it.name)
+            values.put(DatabaseAccessConstantsObjects.email, it.email)
+            values.put(DatabaseAccessConstantsObjects.tableBody, it.body)
+            db?.insert(DatabaseAccessConstantsObjects.commentsTableName, null, values)
         }
         db?.close()
-    }
-
-    companion object {
-        private const val CREATE_POSTS_TABLE_QUERY =
-            "CREATE TABLE posts(_id INTEGER PRIMARY KEY, userId INTEGER, title TEXT, body TEXT)"
-        private const val CREATE_COMMENT_TABLE_QUERY =
-            "CREATE TABLE comments(_id INTEGER PRIMARY KEY, postId INTEGER, name TEXT,email TEXT, body TEXT, FOREIGN KEY(postId) REFERENCES posts(_id))"
-        private const val DATABASE_VERSION = 1
-        private const val DATABASE_NAME = "post.db"
     }
 }
