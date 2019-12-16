@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.postBook.postClassModels.PostClass
+import com.example.postBook.postClassModels.PostCommentClass
 
 class PostDatabaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     SQLiteOpenHelper(
@@ -33,6 +34,23 @@ class PostDatabaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFa
         values.put("body", post.body)
         db.insert("posts", null, values)
         db.close()
+    }
+
+    fun addComments(comments: MutableList<PostCommentClass>){
+        val db:SQLiteDatabase? = this.writableDatabase
+
+        comments.forEach {
+
+            val values = ContentValues()
+
+            values.put("_id", it.id)
+            values.put("postId", it.postId)
+            values.put("name", it.name)
+            values.put("email", it.email)
+            values.put("body", it.body)
+            db?.insert("posts", null, values)
+        }
+        db?.close()
     }
 
     companion object {
