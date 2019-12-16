@@ -1,20 +1,24 @@
 package com.example.postBook.activities.adapter
 
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.postBook.R
+import com.example.postBook.activities.principalActivities.PostBookCommentaryActivity
 import com.example.postBook.postClassModels.PostClass
 
-class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerPostAdapter : RecyclerView.Adapter<RecyclerPostAdapter.ViewHolder>() {
 
     private var posts: MutableList<PostClass> = ArrayList()
 
-    private lateinit var context: Context
+    lateinit var context: Context
 
     fun recyclerAdapter(posts: MutableList<PostClass>, context: Context) {
         this.posts = posts
@@ -46,7 +50,17 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
             commentContent.text = post.body
             commentImage.setImageResource(R.drawable.post_book_comment_icon)
             commentImage.setOnClickListener{
-
+                val detailClassIntent = Intent(
+                    context,
+                    PostBookCommentaryActivity::class.java
+                )
+                val bundle = Bundle()
+                bundle.putLong("userIdSelected", post.userId)
+                bundle.putLong("commentSelected", post.id)
+                bundle.putString("tittleSelected", post.title)
+                bundle.putString("bodySelected", post.body)
+                detailClassIntent.putExtras(bundle)
+                startActivity(context, detailClassIntent, null)
             }
         }
     }
