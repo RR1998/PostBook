@@ -1,4 +1,4 @@
-package com.example.postbook
+package com.example.postBook
 
 import org.junit.Test
 

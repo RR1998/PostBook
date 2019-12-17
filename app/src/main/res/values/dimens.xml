@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_sides">20dp</dimen>
+    <dimen name="text_size_big">20sp</dimen>
+    <dimen name="small_height">70dp</dimen>
+    <dimen name="image_content_height">50dp</dimen>
+    <dimen name="text_size_small">10sp</dimen>
+    <dimen name="upper_sides_margin">10dp</dimen>
+    <dimen name="user_id_height">30dp</dimen>
+    <dimen name="comment_content_height">150dp</dimen>
+    <dimen name="recycler_height">400dp</dimen>
+</resources>
