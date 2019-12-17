@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.postBook.R
 import com.example.postBook.activities.adapter.CommentBundleObject
 import com.example.postBook.activities.adapter.RecyclerCommentsAdapter
-import com.example.postBook.activities.database.databaseClasses.PostDatabaseAccessClass
+import com.example.postBook.activities.database.databaseClasses.PostDataBaseAccessClass
 import com.example.postBook.postClassModels.PostCommentClass
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -110,7 +110,7 @@ class PostBookCommentaryActivity : AppCompatActivity() {
                     commentsArray.add(it)
                 }
             }
-            PostDatabaseAccessClass(
+            PostDataBaseAccessClass(
                 this@PostBookCommentaryActivity,
                 null
             ).addComments(commentsArray)

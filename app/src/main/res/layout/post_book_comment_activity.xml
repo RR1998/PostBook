@@ -1,72 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/full_comment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/commentsColor">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/full_comment"
+    <TextView
+        android:id="@+id/user_id"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/user_id_height"
+        android:layout_marginStart="@dimen/margin_sides"
+        android:layout_marginTop="@dimen/margin_sides"
+        android:layout_marginEnd="@dimen/margin_sides"
         android:scrollbars="horizontal"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_big"
+        app:layout_constraintBottom_toTopOf="@id/comment_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/comment_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/small_height"
+        android:layout_marginStart="@dimen/margin_sides"
+        android:layout_marginEnd="@dimen/margin_sides"
+        android:textColor="@color/detailsCommentsColor"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintBottom_toTopOf="@id/comment_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_id" />
+
+    <TextView
+        android:id="@+id/comment_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/comment_content_height"
+        android:layout_marginStart="@dimen/margin_sides"
+        android:layout_marginEnd="@dimen/margin_sides"
+        android:scrollbars="vertical"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_small"
         app:layout_constraintBottom_toTopOf="@id/posts_views"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/user_id"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/user_id_height"
-            android:layout_marginStart="@dimen/margin_sides"
-            android:layout_marginTop="@dimen/margin_sides"
-            android:layout_marginEnd="@dimen/margin_sides"
-            android:scrollbars="horizontal"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_big"
-            app:layout_constraintBottom_toBottomOf="@+id/comment_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/comment_title"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/small_height"
-            android:layout_marginStart="@dimen/margin_sides"
-            android:layout_marginEnd="@dimen/margin_sides"
-            android:textColor="@color/detailsCommentsColor"
-            android:textSize="@dimen/text_size_small"
-            app:layout_constraintBottom_toTopOf="@+id/comment_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user_id" />
-
-        <TextView
-            android:id="@+id/comment_content"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/comment_content_height"
-            android:layout_marginStart="@dimen/margin_sides"
-            android:layout_marginEnd="@dimen/margin_sides"
-            android:scrollbars="vertical"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_small"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/comment_title" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@id/comment_title" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/posts_views"
         android:layout_width="match_parent"
         android:layout_height="@dimen/recycler_height"
-        android:layout_marginLeft="@dimen/margin_sides"
-        android:layout_marginRight="@dimen/margin_sides"
+        android:layout_marginStart="@dimen/margin_sides"
         android:scrollbars="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/full_comment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/full_comment" />
-
+        app:layout_constraintTop_toBottomOf="@id/comment_content" />
 </androidx.constraintlayout.widget.ConstraintLayout>

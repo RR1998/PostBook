@@ -11,17 +11,17 @@ import com.example.postBook.postClassModels.PostCommentClass
  * PostDataBaseAccessClass create the database and its tables
  */
 
-class PostDatabaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFactory?) :
+class PostDataBaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     SQLiteOpenHelper(
         context,
-        DatabaseAccessConstantsObjects.databaseName, factory,
-        DatabaseAccessConstantsObjects.databaseVersion
+        DataBaseAccessConstantsObjects.databaseName, factory,
+        DataBaseAccessConstantsObjects.databaseVersion
     ) {
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val postsTable = DatabaseAccessConstantsObjects.createPostTableQuery
+        val postsTable = DataBaseAccessConstantsObjects.createPostTableQuery
         db?.execSQL(postsTable)
-        val commentsTable = DatabaseAccessConstantsObjects.createCommentTableQuery
+        val commentsTable = DataBaseAccessConstantsObjects.createCommentTableQuery
         db?.execSQL(commentsTable)
     }
 
@@ -39,11 +39,11 @@ class PostDatabaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFa
 
         posts.forEach {
             val values = ContentValues()
-            values.put(DatabaseAccessConstantsObjects.tableId, it.id)
-            values.put(DatabaseAccessConstantsObjects.userId, it.userId)
-            values.put(DatabaseAccessConstantsObjects.tableTittle, it.title)
-            values.put(DatabaseAccessConstantsObjects.tableBody, it.body)
-            db?.insert(DatabaseAccessConstantsObjects.postTableName, null, values)
+            values.put(DataBaseAccessConstantsObjects.tableId, it.id)
+            values.put(DataBaseAccessConstantsObjects.userId, it.userId)
+            values.put(DataBaseAccessConstantsObjects.tableTittle, it.title)
+            values.put(DataBaseAccessConstantsObjects.tableBody, it.body)
+            db?.insert(DataBaseAccessConstantsObjects.postTableName, null, values)
         }
         db?.close()
     }
@@ -55,12 +55,12 @@ class PostDatabaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFa
 
             val values = ContentValues()
 
-            values.put(DatabaseAccessConstantsObjects.tableId, it.id)
-            values.put(DatabaseAccessConstantsObjects.postId, it.postId)
-            values.put(DatabaseAccessConstantsObjects.name, it.name)
-            values.put(DatabaseAccessConstantsObjects.email, it.email)
-            values.put(DatabaseAccessConstantsObjects.tableBody, it.body)
-            db?.insert(DatabaseAccessConstantsObjects.commentsTableName, null, values)
+            values.put(DataBaseAccessConstantsObjects.tableId, it.id)
+            values.put(DataBaseAccessConstantsObjects.postId, it.postId)
+            values.put(DataBaseAccessConstantsObjects.name, it.name)
+            values.put(DataBaseAccessConstantsObjects.email, it.email)
+            values.put(DataBaseAccessConstantsObjects.tableBody, it.body)
+            db?.insert(DataBaseAccessConstantsObjects.commentsTableName, null, values)
         }
         db?.close()
     }

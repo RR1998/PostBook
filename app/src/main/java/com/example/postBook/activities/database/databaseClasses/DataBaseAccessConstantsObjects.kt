@@ -4,7 +4,7 @@ package com.example.postBook.activities.database.databaseClasses
  * Object that contains the constants used to create the tables query and get set rows properties
  */
 
-object DatabaseAccessConstantsObjects {
+object DataBaseAccessConstantsObjects {
     const val createPostTableQuery =
         "CREATE TABLE posts(_id INTEGER PRIMARY KEY, userId INTEGER, title TEXT, body TEXT)"
     const val createCommentTableQuery  =

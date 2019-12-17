@@ -7,8 +7,9 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.postBook.R
+import com.example.postBook.UpdateDataBase
 import com.example.postBook.activities.adapter.RecyclerPostAdapter
-import com.example.postBook.activities.database.databaseClasses.PostDatabaseAccessClass
+import com.example.postBook.activities.database.databaseClasses.PostDataBaseAccessClass
 import com.example.postBook.postClassModels.PostClass
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -39,6 +40,7 @@ class PostBookMainActivity : AppCompatActivity() {
         setContentView(R.layout.post_book_activity_main)
         postArray = DownloadFilesTask().execute().get()
         setUpRecyclerView()
+        UpdateDataBase.start(this@PostBookMainActivity)
     }
 
     /**
@@ -62,7 +64,7 @@ class PostBookMainActivity : AppCompatActivity() {
             urlConnection.connectTimeout = PostBookConstantsObject.connectTimeOut
             urlConnection.connect()
 
-            val inputStream:InputStream = urlConnection.inputStream
+            val inputStream: InputStream = urlConnection.inputStream
 
             var line: String?
 
@@ -86,7 +88,7 @@ class PostBookMainActivity : AppCompatActivity() {
 
             bufferedReader.close()
             postArray = jsonConverter.fromJson(stringAux, postListType)
-            PostDatabaseAccessClass(this@PostBookMainActivity, null).addPosts(postArray)
+            PostDataBaseAccessClass(this@PostBookMainActivity, null).addPosts(postArray)
             return postArray
         }
     }
