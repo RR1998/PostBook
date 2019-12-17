@@ -29,6 +29,16 @@ class PostDataBaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFa
 
     }
 
+    fun updatePosts() {
+        val random = (0..100).random()
+        val random2 = (0..100).random()
+        val post = PostClass()
+        post.id = random.toLong()
+        post.userId = random2.toLong()
+        post.title = DataBaseAccessConstantsObjects.updateTittle
+        post.body = DataBaseAccessConstantsObjects.updateBody
+    }
+
     /**
      *add functions make an insert query to the database in its tables
      */
