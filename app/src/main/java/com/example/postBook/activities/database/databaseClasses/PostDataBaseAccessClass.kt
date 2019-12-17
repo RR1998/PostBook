@@ -30,13 +30,26 @@ class PostDataBaseAccessClass(context: Context, factory: SQLiteDatabase.CursorFa
     }
 
     fun updatePosts() {
+
+        val db:SQLiteDatabase? = this.writableDatabase
         val random = (0..100).random()
         val random2 = (0..100).random()
         val post = PostClass()
+        val values = ContentValues()
+
         post.id = random.toLong()
         post.userId = random2.toLong()
         post.title = DataBaseAccessConstantsObjects.updateTittle
         post.body = DataBaseAccessConstantsObjects.updateBody
+
+        values.put(DataBaseAccessConstantsObjects.tableId, post.id)
+        values.put(DataBaseAccessConstantsObjects.userId, post.userId)
+        values.put(DataBaseAccessConstantsObjects.tableTittle, post.title)
+        values.put(DataBaseAccessConstantsObjects.postTableName, post.body)
+
+        val array = Array(1){post.id.toString()}
+
+        db?.update(DataBaseAccessConstantsObjects.postTableName, values, "id=?", array)
     }
 
     /**
