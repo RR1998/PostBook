@@ -9,34 +9,29 @@ import java.util.concurrent.TimeUnit
 @Suppress("DEPRECATION")
 class UpdateDataBase(appContext: Context, workerParams: WorkerParameters) :
     Worker(appContext, workerParams) {
-    private var context = appContext
+
+    private var context: Context = appContext
+
     override fun doWork(): Result {
         Log.v("Successful", "Successful update")
         PostDataBaseAccessClass(context, null).updatePosts()
-        WorkManager.getInstance().enqueue(
-            PeriodicWorkRequestBuilder<UpdateDataBase>(15L, TimeUnit.MINUTES)
-                .setConstraints(
-                    Constraints.Builder()
-                        .setRequiredNetworkType(NetworkType.CONNECTED)
-                        .build()
-                ).build()
-        )
         return Result.success()
     }
 
     companion object {
-        fun start(context: Context) {
-            WorkManager.getInstance(context).enqueueUniquePeriodicWork(
-                tag, ExistingPeriodicWorkPolicy.REPLACE,
-                PeriodicWorkRequestBuilder<UpdateDataBase>(15L, TimeUnit.MINUTES)
-                    .setConstraints(
-                        Constraints.Builder()
-                            .setRequiredNetworkType(NetworkType.CONNECTED)
-                            .build()
-                    ).build()
-            )
-        }
 
-        private const val tag = "WorkManagerTag"
+        fun start(context: Context) {
+            val constraints = Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build()
+
+            val saveRequest =
+                PeriodicWorkRequestBuilder<UpdateDataBase>(15L, TimeUnit.MINUTES)
+                    .setInitialDelay(1L, TimeUnit.MINUTES)
+                    .setConstraints(constraints)
+                    .build()
+            WorkManager.getInstance(context)
+                .enqueue(saveRequest)
+        }
     }
 }
