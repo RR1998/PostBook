@@ -7,7 +7,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.postBook.R
-import com.example.postBook.UpdateDataBase
+import com.example.postBook.WorkerApplicationExecute
 import com.example.postBook.activities.adapter.RecyclerPostAdapter
 import com.example.postBook.activities.database.databaseClasses.PostDataBaseAccessClass
 import com.example.postBook.postClassModels.PostClass
@@ -40,7 +40,7 @@ class PostBookMainActivity : AppCompatActivity() {
         setContentView(R.layout.post_book_activity_main)
         postArray = DownloadFilesTask().execute().get()
         setUpRecyclerView()
-        UpdateDataBase.start(this@PostBookMainActivity)
+        WorkerApplicationExecute()
     }
 
     /**

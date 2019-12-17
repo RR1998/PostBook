@@ -5,6 +5,8 @@ package com.example.postBook.activities.database.databaseClasses
  */
 
 object DataBaseAccessConstantsObjects {
+    const val updateTittle = "dissentiet. At duo zril molestie, pri ne consulatu disputando. Vel ut facer phaedrum "
+    const val updateBody = "Lorem ipsum dolor sit amet, pri elitr doctus equidem in, ius te regione deleniti instructior, duo mollis adolescens ne, id has tritani volumus. E"
     const val createPostTableQuery =
         "CREATE TABLE posts(_id INTEGER PRIMARY KEY, userId INTEGER, title TEXT, body TEXT)"
     const val createCommentTableQuery  =
